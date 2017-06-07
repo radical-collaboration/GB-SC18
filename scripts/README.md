@@ -1,0 +1,1 @@
+Example script to run an ensemble of single NAMD jobs. Takes the resource and root simulation directory as arguments, and stages all data from the root directory. 
