@@ -45,7 +45,8 @@ class RunNAMD(PoE):
 
 		k = Kernel(name="md.namd")
 		k.arguments = ["%s.namd" % rootdir]
-		k.upload_input_data = my_list
+		k.copy_input_data = my_list_shared
+		#k.link_input_data = my_list_shared		# You may choose to use link data if data is too large to copy
 		k.cores = 4
 		k.download_output_data = "STDOUT > %s-{0}.out".format(instance) % rootdir
 
@@ -65,11 +66,13 @@ if __name__ == "__main__":
 		rootdir = sys.argv[2] #dir containing input files
 
 		my_list = []
+		my_list_shared = []
 
 		for subdir, dirs, files in os.walk(rootdir):
 			for file in files:
 				print os.path.join(subdir, file)
 				my_list.append(os.path.join(subdir, file))
+				my_list_shared.append('$SHARED/%s'%os.path.basename(file))
 
 	try:
 
@@ -89,10 +92,13 @@ if __name__ == "__main__":
 				queue = config[resource]['queue'],
 			)
 
+		cluster.shared_data = my_list
+
 		# Allocate the resources.
 		cluster.allocate()
 
 		ccount = RunNAMD(stages=1,instances=4)
+		
 
 		cluster.run(ccount)
 
