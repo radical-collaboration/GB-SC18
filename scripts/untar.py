@@ -50,7 +50,7 @@ class UntarKernel(KernelBase):
         cfg = _KERNEL_INFO["machine_configs"][resource_key]
 
         executable = "/bin/bash"
-        arguments  = ['-l', '-c', 'tar zxvf {input1}'.format(input1 = self.get_arg("--inputfile="))]
+        arguments  = ['-l', '-c', 'tar zxvf {input1} -C ./'.format(input1 = self.get_arg("--inputfile="))]
 
         self._executable  = executable
         self._arguments   = arguments

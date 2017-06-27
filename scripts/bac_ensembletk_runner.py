@@ -7,6 +7,7 @@ import shutil
 
 from radical.ensemblemd import Kernel
 from radical.ensemblemd import PoE
+#from radical.ensemblemd import EoP
 from radical.ensemblemd import EnsemblemdError
 from radical.ensemblemd import ResourceHandle
 
@@ -39,9 +40,9 @@ class RunNAMD(PoE):
 	def stage_1(self, instance):
 
 		k = Kernel(name="untar")
-		k.arguments = ["--inputfile=$SHARED/"+rootdir+".tgz"]
+		k.arguments = ["--inputfile="+rootdir+".tgz"]
 		k.cores = 1
-		#k.copy_input_data  = "$SHARED/"+rootdir+".tgz > "+rootdir+".tgz"
+		k.copy_input_data  = "$SHARED/"+rootdir+".tgz > "+rootdir+".tgz"
 
 		return k
 
@@ -52,7 +53,7 @@ class RunNAMD(PoE):
 		for f in my_list:
 			k1.link_input_data.append("$STAGE_1/"+f+" > "+f)
 
-		k1.arguments = ["--modeldir="+rootdir, "--replica=1"]
+		k1.arguments = ["--modeldir="+rootdir, "--replica=%d" % instance]
 		k1.cores = 1
 
 		return k1
@@ -60,7 +61,7 @@ class RunNAMD(PoE):
 	def stage_3(self, instance):
 		k2 = Kernel(name="md.namd")
 		#Need this to make the dir
-		k2.link_input_data = ['$STAGE_2/{input1}/replicas/rep1/equilibration/holder > {input1}/replicas/rep1/equilibration/holder'.format(input1 = rootdir)]
+		k2.link_input_data = ['$STAGE_2/{input1}/replicas/rep{input2}/equilibration/holder > {input1}/replicas/rep{input2}/equilibration/holder'.format(input1 = rootdir, input2=instance)]
 
 		for f in my_list:
 			k2.link_input_data.append("$STAGE_2/"+f+" > "+f)
@@ -72,11 +73,7 @@ class RunNAMD(PoE):
 
 	def stage_4(self, instance):
 		k3 = Kernel(name="md.namd")
-		k3.link_input_data = []
-
-		my_list.append('{input1}/replicas/rep1/equilibration/eq0.coor'.format(input1 = rootdir))
-		my_list.append('{input1}/replicas/rep1/equilibration/eq0.xsc'.format(input1 = rootdir))
-		my_list.append('{input1}/replicas/rep1/equilibration/eq0.vel'.format(input1 = rootdir))
+		k3.link_input_data = ['$STAGE_3/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(input1 = rootdir, input2 = instance), '$STAGE_3/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(input1 = rootdir, input2 = instance), '$STAGE_3/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(input1 = rootdir, input2 = instance)]
 
 		for f in my_list:
 			k3.link_input_data.append("$STAGE_3/"+f+" > "+f)
@@ -88,11 +85,10 @@ class RunNAMD(PoE):
 
 	def stage_5(self, instance):
 		k4 = Kernel(name="md.namd")
-		k4.link_input_data = []
-
-		my_list.append('{input1}/replicas/rep1/equilibration/eq1.coor'.format(input1 = rootdir))
-		my_list.append('{input1}/replicas/rep1/equilibration/eq1.xsc'.format(input1 = rootdir))
-		my_list.append('{input1}/replicas/rep1/equilibration/eq1.vel'.format(input1 = rootdir))
+		k4.link_input_data = ['$STAGE_4/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(input1 = rootdir, input2 = instance), '$STAGE_4/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(input1 = rootdir, input2 = instance), '$STAGE_4/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_4/{input1}/replicas/rep{input2}/equilibration/eq1.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_4/{input1}/replicas/rep{input2}/equilibration/eq1.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_4/{input1}/replicas/rep{input2}/equilibration/eq1.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(input1 = rootdir, input2 = instance)]
 
 		for f in my_list:
 			k4.link_input_data.append("$STAGE_4/"+f+" > "+f)
@@ -127,7 +123,7 @@ if __name__ == "__main__":
 				#print os.path.join(subdir, file)
 				my_list.append(os.path.join(subdir, file))
 
-	#Make the tar if it doesn't exist
+	#TODO: Make the tar if it doesn't exist
 
 
 	try:
@@ -140,7 +136,7 @@ if __name__ == "__main__":
 		cluster = ResourceHandle(
 				resource=resource,
 				cores=totalcores,
-				walltime=15,
+				walltime=60,
 				username=config[resource]['user'],
 
 				project=config[resource]['project'],
