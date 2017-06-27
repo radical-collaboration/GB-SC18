@@ -55,7 +55,7 @@ class PreprepKernel(KernelBase):
         cfg = _KERNEL_INFO["machine_configs"][resource_key]
 
         executable = "/bin/bash"
-        arguments  = ['-l', '-c', 'find -L {input1} -type f -print0 | xargs -0 sed -i \'s/REPX/{input2}/g\' ; mkdir -p {input1}/replicas/rep{input2}/equilibration; touch {input1}/replicas/rep{input2}/equilibration/holder'.format(input1 = self.get_arg("--modeldir="), input2 = self.get_arg("--replica="))]
+        arguments  = ['-l', '-c', 'find -L {input1} -type f -print0 | xargs -0 sed -i \'s/REPX/{input2}/g\' ; mkdir -p {input1}/replicas/rep{input2}/equilibration; touch {input1}/replicas/rep{input2}/equilibration/holder; mkdir -p {input1}/replicas/rep{input2}/simulation; touch {input1}/replicas/rep{input2}/simulation/holder'.format(input1 = self.get_arg("--modeldir="), input2 = self.get_arg("--replica="))]
 
         self._executable  = executable
         self._arguments   = arguments
