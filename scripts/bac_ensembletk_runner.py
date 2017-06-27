@@ -6,8 +6,8 @@ import json
 import shutil
 
 from radical.ensemblemd import Kernel
-from radical.ensemblemd import PoE
-#from radical.ensemblemd import EoP
+#from radical.ensemblemd import PoE
+from radical.ensemblemd import EoP
 from radical.ensemblemd import EnsemblemdError
 from radical.ensemblemd import ResourceHandle
 
@@ -31,10 +31,10 @@ if os.environ.get('RADICAL_ENTK_VERBOSE') == None:
 
 # ------------------------------------------------------------------------------
 #
-class RunNAMD(PoE):
+class RunNAMD(EoP):
 
 	def __init__(self, stages, instances):
-		PoE.__init__(self, stages, instances)
+		EoP.__init__(self, stages, instances)
 
 		#/move data
 	def stage_1(self, instance):
@@ -97,6 +97,26 @@ class RunNAMD(PoE):
 		k4.cores = coresp
 
 		return k4
+
+		#sim steps
+	def stage_6(self, instance):
+		k5 = Kernel(name="md.namd")
+		k5.link_input_data = ['$STAGE_2/{input1}/replicas/rep{input2}/simulation/holder > {input1}/replicas/rep{input2}/simulation/holder'.format(input1 = rootdir, input2=instance), '$STAGE_5/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(input1 = rootdir, input2 = instance), '$STAGE_5/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(input1 = rootdir, input2 = instance), '$STAGE_5/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_5/{input1}/replicas/rep{input2}/equilibration/eq1.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_5/{input1}/replicas/rep{input2}/equilibration/eq1.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_5/{input1}/replicas/rep{input2}/equilibration/eq1.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_5/{input1}/replicas/rep{input2}/equilibration/eq2.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_5/{input1}/replicas/rep{input2}/equilibration/eq2.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_5/{input1}/replicas/rep{input2}/equilibration/eq2.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(input1 = rootdir, input2 = instance)]
+
+		for f in my_list:
+			k5.link_input_data.append("$STAGE_5/"+f+" > "+f)
+
+		k5.arguments = ["%s/sim_confs/sim1.conf" % rootdir]
+		k5.cores = coresp
+
+		return k5
+
 # ------------------------------------------------------------------------------
 #
 if __name__ == "__main__":
@@ -136,7 +156,7 @@ if __name__ == "__main__":
 		cluster = ResourceHandle(
 				resource=resource,
 				cores=totalcores,
-				walltime=60,
+				walltime=360,
 				username=config[resource]['user'],
 
 				project=config[resource]['project'],
@@ -149,7 +169,7 @@ if __name__ == "__main__":
 		# Allocate the resources.
 		cluster.allocate()
 
-		ccount = RunNAMD(stages=5,instances=replicas)
+		ccount = RunNAMD(stages=6,instances=replicas)
 
 		cluster.run(ccount)
 
