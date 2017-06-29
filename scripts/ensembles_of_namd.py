@@ -98,7 +98,7 @@ if __name__ == "__main__":
 		cluster.allocate()
 
 		ccount = RunNAMD(stages=1,instances=4)
-		
+
 
 		cluster.run(ccount)
 

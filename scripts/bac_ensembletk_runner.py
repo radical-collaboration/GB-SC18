@@ -17,9 +17,11 @@ from radical.ensemblemd.engine import get_engine
 #Import our new kernel
 from untar import UntarKernel
 from preprep import PreprepKernel
+from tar import TarKernel
 
 # Register the user-defined kernel with Ensemble MD Toolkit.
 get_engine().add_kernel_plugin(UntarKernel)
+get_engine().add_kernel_plugin(TarKernel)
 get_engine().add_kernel_plugin(PreprepKernel)
 
 # ------------------------------------------------------------------------------
@@ -117,6 +119,24 @@ class RunNAMD(EoP):
 
 		return k5
 
+	def stage_7(self, instance):
+		k6 = Kernel(name="tar")
+		k6.arguments = ["--directory="+rootdir, "--tarname=rep%d" % instance]
+		k6.cores = 1
+		k6.link_input_data = ['$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(input1 = rootdir, input2 = instance), '$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(input1 = rootdir, input2 = instance), '$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq1.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq1.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq1.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq2.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq2.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq2.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_6/{input1}/replicas/rep{input2}/simulation/sim1.xsc > {input1}/replicas/rep{input2}/simulation/sim1.xsc'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_6/{input1}/replicas/rep{input2}/simulation/sim1.vel > {input1}/replicas/rep{input2}/simulation/sim1.vel'.format(input1 = rootdir, input2 = instance),
+		'$STAGE_6/{input1}/replicas/rep{input2}/simulation/sim1.coor > {input1}/replicas/rep{input2}/simulation/sim1.coor'.format(input1 = rootdir, input2 = instance)]
+
+		k6.download_output_data = "rep{0}.tgz".format(instance)
+
+		return k6
 # ------------------------------------------------------------------------------
 #
 if __name__ == "__main__":
