@@ -176,7 +176,7 @@ if __name__ == "__main__":
 		cluster = ResourceHandle(
 				resource=resource,
 				cores=totalcores,
-				walltime=360,
+				walltime=720,
 				username=config[resource]['user'],
 
 				project=config[resource]['project'],
@@ -189,15 +189,15 @@ if __name__ == "__main__":
 		# Allocate the resources.
 		cluster.allocate()
 
-		ccount = RunNAMD(stages=6,instances=replicas)
+		ccount = RunNAMD(stages=7,instances=replicas)
 
 		cluster.run(ccount)
 
 		# Print the checksums
 		print "\nResulting simulation output:"
 		import glob
-		for result in glob.glob("*.out"):
-			print "  * {0}".format(open(result, "r").readline().strip())
+		for result in glob.glob("rep*.tgz"):
+			print result)
 
 	except EnsemblemdError, er:
 
