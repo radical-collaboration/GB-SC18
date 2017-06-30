@@ -197,7 +197,7 @@ if __name__ == "__main__":
 		print "\nResulting simulation output:"
 		import glob
 		for result in glob.glob("rep*.tgz"):
-			print result)
+			print result
 
 	except EnsemblemdError, er:
 
