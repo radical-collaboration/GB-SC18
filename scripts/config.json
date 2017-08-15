@@ -20,7 +20,7 @@
 				"cores": 16
 			},
 	"ncsa.bw_aprun" :     {
-        			"project"  : "PRAC_bamm",
+        			"project"  : "bamm",
         			"queue"    : "normal",
         			"schema"   : "gsissh",
         			"cores"    : 64
