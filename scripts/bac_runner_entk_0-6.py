@@ -8,17 +8,17 @@ if os.environ.get('RADICAL_ENTK_VERBOSE') == None:
     os.environ['RADICAL_ENTK_VERBOSE'] = 'INFO'
 
 
-def generate_state():
+# def generate_state():
 
-    s = Stage()
+#     s = Stage()
 
-    t = Task()
-    t.executable = ['/bin/sleep']
-    t.arguments = ['0']
-    t.cores = 8
-    s.add_tasks(t)
+#     t = Task()
+#     t.executable = ['/bin/sleep']
+#     t.arguments = ['0']
+#     t.cores = 8
+#     s.add_tasks(t)
 
-    return s
+#     return s
 
 def stage_1():
 
