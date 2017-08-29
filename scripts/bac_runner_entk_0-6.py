@@ -22,6 +22,7 @@ if os.environ.get('RADICAL_ENTK_VERBOSE') == None:
 
 def stage_1():
 
+	s = Stage()
 	t.name = 'untar'
 	t.executable = ['untar']
 	t.arguments = ["--inputfile="+rootdir+".tgz"]
@@ -33,6 +34,7 @@ def stage_1():
 
 def stage_2():
 	
+	s1 = Stage()
 	t1.name = 'preprep'
 	t1.executable = ['preprep']
 	t1.link_input_data = []
@@ -48,6 +50,7 @@ def stage_2():
 
 def stage_3():
 	
+	s2 = Stage()
 	t2.name = 'stage3_namd'
 	t2.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
 	#Need this to make the dir
@@ -64,6 +67,7 @@ def stage_3():
 
 def stage_4():
 
+	s3 = Stage()
 	t3.name = 'stage4_namd'
 	t3.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
 	t3.link_input_data = ['$STAGE_3/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(input1 = rootdir, input2 = instance), '$STAGE_3/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(input1 = rootdir, input2 = instance), '$STAGE_3/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(input1 = rootdir, input2 = instance)]
@@ -79,6 +83,7 @@ def stage_4():
 
 def stage_5():
 
+	s4 = Stage()
 	t4.name = 'stage5_namd'
 	t4.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
 	t4.link_input_data = ['$STAGE_4/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(input1 = rootdir, input2 = instance), '$STAGE_4/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(input1 = rootdir, input2 = instance), '$STAGE_4/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(input1 = rootdir, input2 = instance),
@@ -97,7 +102,7 @@ def stage_5():
 
 def stage_6():
 
-
+	s5 = Stage()
 	t5.name = 'stage6_namd'
 	t5.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
 	t5.link_input_data = ['$STAGE_2/{input1}/replicas/rep{input2}/simulation/holder > {input1}/replicas/rep{input2}/simulation/holder'.format(input1 = rootdir, input2=instance), '$STAGE_5/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(input1 = rootdir, input2 = instance), '$STAGE_5/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(input1 = rootdir, input2 = instance), '$STAGE_5/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(input1 = rootdir, input2 = instance),
@@ -119,6 +124,7 @@ def stage_6():
 
 def stage_7():
 
+	s6 = Stage()
 	t6.name = 'stage7_tar'
 	t6.executable = 'tar'
 	t6.arguments = ["--directory="+rootdir, "--tarname=rep%d" % instance]
@@ -159,38 +165,44 @@ def generate_pipeline():
 
 if __name__ == '__main__':
 
-    pipelines = []
 
-    num_pipelines=8
-    
-    for cnt in range(num_pipelines):
-        pipelines.append(generate_pipeline())
+	try: 
+	    pipelines = []
+
+	    num_pipelines=8
+	    
+	    for cnt in range(num_pipelines):
+	        pipelines.append(generate_pipeline())
 
 
-    # Create a dictionary describe four mandatory keys:
-    # resource, walltime, cores and project
-    # resource is 'local.localhost' to execute locally
-    res_dict = {
+	    # Create a dictionary describe four mandatory keys:
+	    # resource, walltime, cores and project
+	    # resource is 'local.localhost' to execute locally
+	    res_dict = {
 
-            'resource': 'ncsa.bw_aprun',
-            'walltime': 720,
-            'cores': num_pipelines * 8,
-            'project': 'bamm',
-            'queue': 'normal',
-            'access_schema': 'gsissh'
-    }
+	            'resource': 'ncsa.bw_aprun',
+	            'walltime': 1440,
+	            'cores': num_pipelines * 8,
+	            'project': 'bamm',
+	            'queue': 'high',
+	            'access_schema': 'gsissh'
+	    }
 
-    # Create Resource Manager object with the above resource description
-    rman = ResourceManager(res_dict)
+	    # Create Resource Manager object with the above resource description
+	    rman = ResourceManager(res_dict)
 
-    # Create Application Manager
-    appman = AppManager()
+	    # Create Application Manager
+	    appman = AppManager()
 
-    # Assign resource manager to the Application Manager
-    appman.resource_manager = rman
+	    # Assign resource manager to the Application Manager
+	    appman.resource_manager = rman
 
-    # Assign the workflow as a set of Pipelines to the Application Manager
-    appman.assign_workflow(set(pipelines))
+	    # Assign the workflow as a set of Pipelines to the Application Manager
+	    appman.assign_workflow(set(pipelines))
 
-    # Run the Application Manager
-    appman.run()
+	    # Run the Application Manager
+	    appman.run()
+
+	except: 
+
+		print("nope")
