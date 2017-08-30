@@ -8,7 +8,7 @@ if os.environ.get('RADICAL_ENTK_VERBOSE') == None:
     os.environ['RADICAL_ENTK_VERBOSE'] = 'INFO'
 
 
-def generate_pipeline():
+def generate_pipeline(replica_ind):
 
     # Create a Pipeline object
     p = Pipeline()
@@ -19,8 +19,8 @@ def generate_pipeline():
     s1 = Stage()
     t1 = Task()
     t1.name = 'untar'
-    t1.executable = ['python']
-    t1.arguments = ['untar.py',"--inputfile="+rootdir+".tgz"]
+    t1.executable = ["/bin/bash"]
+    t1.arguments = ['-l', '-c', 'tar zxvf {input1} -C ./'.format(input1 = rootdir+".tgz")]
     t1.cores = 1
     t1.copy_input_data  = ["$SHARED/"+rootdir+".tgz > "+rootdir+".tgz"]
 
@@ -36,8 +36,9 @@ def generate_pipeline():
     s2 = Stage()
     t2 = Task()
     t2.name = 'preprep'
-    t2.executable = ['python']
-    t2.arguments = ['preprep.py',"--modeldir="+rootdir, "--replica=%d" % num_pipelines]
+    t2.executable = ["/bin/bash"]
+    t2.arguments = ['-l', '-c', 
+                    'find -L {input1} -type f -print0 | xargs -0 sed -i \'s/REPX/{input2}/g\' ; mkdir -p {input1}/replicas/rep{input2}/equilibration; touch {input1}/replicas/rep{input2}/equilibration/holder; mkdir -p {input1}/replicas/rep{input2}/simulation; touch {input1}/replicas/rep{input2}/simulation/holder'.format(input1 = rootdir , input2 = replica_ind)]
     t2.cores = 1
     
     t2.link_input_data = []
@@ -161,8 +162,8 @@ def generate_pipeline():
     s7 = Stage()
     t7 = Task()
     t7.name = 'stage7_tar'
-    t7.executable = ['python']
-    t7.arguments = ['tar.py',"--directory="+rootdir, "--tarname=rep%d" % num_pipelines]
+    t7.executable = ["/bin/bash"]
+    t7.arguments = ['-l', '-c', 'tar -hczf {input1}.tgz -C {input2}/replicas .'.format(input1 = 'rep%s'%replica_ind, input2 = rootdir)]
     t7.cores = 1
     t7.link_input_data = [
         '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines), 
@@ -178,7 +179,7 @@ def generate_pipeline():
         '{stage6}/{input1}/replicas/rep{input2}/simulation/sim1.vel > {input1}/replicas/rep{input2}/simulation/sim1.vel'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines),
         '{stage6}/{input1}/replicas/rep{input2}/simulation/sim1.coor > {input1}/replicas/rep{input2}/simulation/sim1.coor'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines)]
 
-    t7.download_output_data = ["rep{0}.tgz".format(num_pipelines)]
+    t7.download_output_data = ["rep{0}.tgz".format(replica_ind)]
     s7.add_tasks(t7)      
 
     p.add_stages(s7)
@@ -204,7 +205,7 @@ if __name__ == '__main__':
         num_pipelines=8
         
         for cnt in range(num_pipelines):
-            pipelines.append(generate_pipeline())
+            pipelines.append(generate_pipeline(cnt+1))
 
 
         # Create a dictionary describe four mandatory keys:
@@ -220,6 +221,7 @@ if __name__ == '__main__':
 
         # Create Resource Manager object with the above resource description
         rman = ResourceManager(res_dict)
+        rman.shared_data = [rootdir + '.tgz']
 
         # Create Application Manager
         appman = AppManager()
