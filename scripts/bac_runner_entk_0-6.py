@@ -146,8 +146,8 @@ def stage_7():
 	s6 = Stage()
 	t6 = Task()
 	t6.name = 'stage7_tar'
-	t6.executable = 'tar'
-	t6.arguments = ["--directory="+rootdir, "--tarname=rep%d" % num_pipelines]
+	t6.executable = ['python']
+	t6.arguments = ['tar.py',"--directory="+rootdir, "--tarname=rep%d" % num_pipelines]
 	t6.cores = 1
 	t6.link_input_data = ['$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(input1 = rootdir, input2 = num_pipelines), '$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(input1 = rootdir, input2 = num_pipelines), '$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(input1 = rootdir, input2 = num_pipelines),
 	'$STAGE_6/{input1}/replicas/rep{input2}/equilibration/eq1.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(input1 = rootdir, input2 = num_pipelines),
@@ -160,7 +160,7 @@ def stage_7():
 	'$STAGE_6/{input1}/replicas/rep{input2}/simulation/sim1.vel > {input1}/replicas/rep{input2}/simulation/sim1.vel'.format(input1 = rootdir, input2 = num_pipelines),
 	'$STAGE_6/{input1}/replicas/rep{input2}/simulation/sim1.coor > {input1}/replicas/rep{input2}/simulation/sim1.coor'.format(input1 = rootdir, input2 = num_pipelines)]
 
-	t6.download_output_data = "rep{0}.tgz".format(num_pipelines)
+	t6.download_output_data = ["rep{0}.tgz".format(num_pipelines)]
 	s6.add_tasks(t6)
 
 	return s6
@@ -187,6 +187,7 @@ if __name__ == '__main__':
 
 
   	try:
+		coresp = 8
   		rootdir = '2j6m-a698g'
   		my_list = []
   		
@@ -196,43 +197,40 @@ if __name__ == '__main__':
 				my_list.append(os.path.join(subdir, file))
 
 
-	    pipelines = []
+	    	pipelines = []
 
-	    num_pipelines=8
+	    	num_pipelines=8
 	    
-	    for cnt in range(num_pipelines):
-	        pipelines.append(generate_pipeline())
+	   	for cnt in range(num_pipelines):
+	        	pipelines.append(generate_pipeline())
 
 
 	    # Create a dictionary describe four mandatory keys:
 	    # resource, walltime, cores and project
 	    # resource is 'local.localhost' to execute locally
-	    res_dict = {
-
-	            'resource': 'ncsa.bw_aprun',
-	            'walltime': 1440,
-	            'cores': num_pipelines * 8,
-	            'project': 'bamm',
-	            'queue': 'high',
-	            'access_schema': 'gsissh'
-	    }
+		res_dict = {
+			'resource': 'ncsa.bw_aprun',
+	            	'walltime': 1440,
+	            	'cores': num_pipelines * 8,
+	            	'project': 'bamm',
+	            	'queue': 'high',
+	            	'access_schema': 'gsissh'}
 
 	    # Create Resource Manager object with the above resource description
-	    rman = ResourceManager(res_dict)
+	    	rman = ResourceManager(res_dict)
 
 	    # Create Application Manager
-	    appman = AppManager()
+	    	appman = AppManager()
 
 	    # Assign resource manager to the Application Manager
-	    appman.resource_manager = rman
+	    	appman.resource_manager = rman
 
 	    # Assign the workflow as a set of Pipelines to the Application Manager
-	    appman.assign_workflow(set(pipelines))
+	    	appman.assign_workflow(set(pipelines))
 
 	    # Run the Application Manager
-	    appman.run()
+	    	appman.run()
 
 	except Exception as ex: 
-
 		print('Error: ',ex)
                 print traceback.format_exc()
