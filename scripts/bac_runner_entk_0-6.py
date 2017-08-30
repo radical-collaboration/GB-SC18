@@ -187,8 +187,15 @@ if __name__ == '__main__':
 
 
   	try:
+  		rootdir = '2j6m-a698g'
+  		my_list = []
+  		
+  		for subdir, dirs, files in os.walk(rootdir):
+			for file in files:
+				#print os.path.join(subdir, file)
+				my_list.append(os.path.join(subdir, file))
 
-	    rootdir = '2j6m-a698g'
+
 	    pipelines = []
 
 	    num_pipelines=8
