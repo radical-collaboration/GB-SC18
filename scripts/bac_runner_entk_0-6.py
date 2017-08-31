@@ -61,8 +61,9 @@ def generate_pipeline(replica_ind):
     t3.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
     t3.arguments = ["%s/mineq_confs/eq0.conf" % rootdir]
     t3.cores = coresp
+    t3.mpi = True
 
-    t3.link_input_data = ['{stage2}/{input1}/replicas/rep{input2}/equilibration/holder > {input1}/replicas/rep{input2}/equilibration/holder'.format(stage2=stage_2_ref,input1 = rootdir, input2=num_pipelines)]
+    t3.link_input_data = ['{stage2}/{input1}/replicas/rep{input2}/equilibration/holder > {input1}/replicas/rep{input2}/equilibration/holder'.format(stage2=stage_2_ref,input1 = rootdir, input2=replica_ind)]
 
     for f in my_list:
         t3.link_input_data.append("{stage2}/".format(stage2=stage_2_ref)+f+" > "+f)
@@ -82,11 +83,12 @@ def generate_pipeline(replica_ind):
     t4.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
     t4.arguments = ["%s/mineq_confs/eq1.conf" % rootdir]
     t4.cores = coresp
+    t4.mpi = True
 
     t4.link_input_data = [
-        '{stage3}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage3=stage_3_ref,input1 = rootdir, input2 = num_pipelines), 
-        '{stage3}/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(stage3=stage_3_ref, input1 = rootdir, input2 = num_pipelines), 
-        '{stage3}/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(stage3=stage_3_ref, input1 = rootdir, input2 = num_pipelines)]
+        '{stage3}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage3=stage_3_ref,input1 = rootdir, input2 = replica_ind), 
+        '{stage3}/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(stage3=stage_3_ref, input1 = rootdir, input2 = replica_ind), 
+        '{stage3}/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(stage3=stage_3_ref, input1 = rootdir, input2 = replica_ind)]
 
     for f in my_list:
         t4.link_input_data.append("{stage3}/".format(stage3=stage_3_ref)+f+" > "+f)
@@ -106,14 +108,15 @@ def generate_pipeline(replica_ind):
     t5.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
     t5.arguments = ["%s/mineq_confs/eq2.conf" % rootdir]
     t5.cores = coresp
+    t5.mpi = True
 
     t5.link_input_data = [
-        '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage4=stage_4_ref,input1 = rootdir, input2 = num_pipelines), 
-        '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(stage4=stage_4_ref,input1 = rootdir, input2 = num_pipelines), 
-        '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(stage4=stage_4_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq1.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(stage4=stage_4_ref, input1 = rootdir, input2 = num_pipelines),
-        '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq1.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(stage4=stage_4_ref, input1 = rootdir, input2 = num_pipelines),
-        '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq1.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(stage4=stage_4_ref, input1 = rootdir, input2 = num_pipelines)]
+        '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage4=stage_4_ref,input1 = rootdir, input2 = replica_ind), 
+        '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(stage4=stage_4_ref,input1 = rootdir, input2 = replica_ind), 
+        '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(stage4=stage_4_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq1.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(stage4=stage_4_ref, input1 = rootdir, input2 = replica_ind),
+        '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq1.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(stage4=stage_4_ref, input1 = rootdir, input2 = replica_ind),
+        '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq1.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(stage4=stage_4_ref, input1 = rootdir, input2 = replica_ind)]
 
 
     for f in my_list:
@@ -134,18 +137,19 @@ def generate_pipeline(replica_ind):
     t6.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
     t6.arguments = ["%s/sim_confs/sim1.conf" % rootdir]
     t6.cores = coresp
+    t6.mpi = True
 
     t6.link_input_data = [
-        '{stage2}/{input1}/replicas/rep{input2}/simulation/holder > {input1}/replicas/rep{input2}/simulation/holder'.format(stage2=stage_2_ref,input1 = rootdir, input2=num_pipelines), 
-        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage5=stage_5_ref,input1 = rootdir, input2 = num_pipelines), 
-        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(stage5=stage_5_ref,input1 = rootdir, input2 = num_pipelines), 
-        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(stage5=stage_5_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq1.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(stage5=stage_5_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq1.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(stage5=stage_5_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq1.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(stage5=stage_5_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq2.xsc > {input1}/replicas/rep{input2}/equilibration/eq2.xsc'.format(stage5=stage_5_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq2.vel > {input1}/replicas/rep{input2}/equilibration/eq2.vel'.format(stage5=stage_5_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq2.coor > {input1}/replicas/rep{input2}/equilibration/eq2.coor'.format(stage5=stage_5_ref,input1 = rootdir, input2 = num_pipelines)]
+        '{stage2}/{input1}/replicas/rep{input2}/simulation/holder > {input1}/replicas/rep{input2}/simulation/holder'.format(stage2=stage_2_ref,input1 = rootdir, input2=replica_ind), 
+        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage5=stage_5_ref,input1 = rootdir, input2 = replica_ind), 
+        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(stage5=stage_5_ref,input1 = rootdir, input2 = replica_ind), 
+        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(stage5=stage_5_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq1.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(stage5=stage_5_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq1.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(stage5=stage_5_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq1.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(stage5=stage_5_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq2.xsc > {input1}/replicas/rep{input2}/equilibration/eq2.xsc'.format(stage5=stage_5_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq2.vel > {input1}/replicas/rep{input2}/equilibration/eq2.vel'.format(stage5=stage_5_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq2.coor > {input1}/replicas/rep{input2}/equilibration/eq2.coor'.format(stage5=stage_5_ref,input1 = rootdir, input2 = replica_ind)]
 
     for f in my_list:
         t6.link_input_data.append("{stage5}/".format(stage5=stage_5_ref,)+f+" > "+f)
@@ -166,18 +170,18 @@ def generate_pipeline(replica_ind):
     t7.arguments = ['-l', '-c', 'tar -hczf {input1}.tgz -C {input2}/replicas .'.format(input1 = 'rep%s'%replica_ind, input2 = rootdir)]
     t7.cores = 1
     t7.link_input_data = [
-        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines), 
-        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines), 
-        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq1.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq1.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq1.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq2.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq2.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq2.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage6}/{input1}/replicas/rep{input2}/simulation/sim1.xsc > {input1}/replicas/rep{input2}/simulation/sim1.xsc'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage6}/{input1}/replicas/rep{input2}/simulation/sim1.vel > {input1}/replicas/rep{input2}/simulation/sim1.vel'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines),
-        '{stage6}/{input1}/replicas/rep{input2}/simulation/sim1.coor > {input1}/replicas/rep{input2}/simulation/sim1.coor'.format(stage6=stage_6_ref,input1 = rootdir, input2 = num_pipelines)]
+        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind), 
+        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind), 
+        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq1.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq1.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq1.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq2.xsc > {input1}/replicas/rep{input2}/equilibration/eq1.xsc'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq2.vel > {input1}/replicas/rep{input2}/equilibration/eq1.vel'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq2.coor > {input1}/replicas/rep{input2}/equilibration/eq1.coor'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage6}/{input1}/replicas/rep{input2}/simulation/sim1.xsc > {input1}/replicas/rep{input2}/simulation/sim1.xsc'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage6}/{input1}/replicas/rep{input2}/simulation/sim1.vel > {input1}/replicas/rep{input2}/simulation/sim1.vel'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind),
+        '{stage6}/{input1}/replicas/rep{input2}/simulation/sim1.coor > {input1}/replicas/rep{input2}/simulation/sim1.coor'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind)]
 
     t7.download_output_data = ["rep{0}.tgz".format(replica_ind)]
     s7.add_tasks(t7)      
