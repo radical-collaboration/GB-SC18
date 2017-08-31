@@ -54,7 +54,6 @@ def generate_pipeline(replica_ind):
     
     #---------------------------------------------------------------------------
     # Stage 3
-    
     s3 = Stage()
     t3 = Task()
     t3.name = 'stage3_namd'
@@ -76,7 +75,7 @@ def generate_pipeline(replica_ind):
 
     #---------------------------------------------------------------------------
     # Stage 4
-    
+    '''
     s4 = Stage()
     t4 = Task()
     t4.name = 'stage4_namd'
@@ -187,6 +186,7 @@ def generate_pipeline(replica_ind):
     s7.add_tasks(t7)      
 
     p.add_stages(s7)
+    '''
     #---------------------------------------------------------------------------
 
     return p
@@ -206,7 +206,7 @@ if __name__ == '__main__':
                 my_list.append(os.path.join(subdir, file))
 
         pipelines = []
-        num_pipelines=8
+        num_pipelines=1
         
         for cnt in range(num_pipelines):
             pipelines.append(generate_pipeline(cnt+1))
@@ -217,7 +217,7 @@ if __name__ == '__main__':
         # resource is 'local.localhost' to execute locally
         res_dict = {
             'resource': 'ncsa.bw_aprun',
-            'walltime': 1440,
+            'walltime': 60,
             'cores': num_pipelines * 8,
             'project': 'bamm',
             'queue': 'high',
@@ -228,7 +228,7 @@ if __name__ == '__main__':
         rman.shared_data = [rootdir + '.tgz']
 
         # Create Application Manager
-        appman = AppManager()
+        appman = AppManager(hostname='locahost')
 
         # Assign resource manager to the Application Manager
         appman.resource_manager = rman
