@@ -224,7 +224,7 @@ if __name__ == '__main__':
         rman.shared_data = [rootdir + '.tgz']
 
         # Create Application Manager
-        appman = AppManager(hostname='locahost:6000')
+        appman = AppManager(hostname='locahost')
 
         # Assign resource manager to the Application Manager
         appman.resource_manager = rman
