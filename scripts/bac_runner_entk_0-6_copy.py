@@ -188,7 +188,7 @@ if __name__ == '__main__':
         # resource is 'local.localhost' to execute locally
         res_dict = {
             'resource': 'ncsa.bw_aprun',
-            'walltime': 1440,
+            'walltime': 400,
             'cores': num_pipelines * 8,
             'project': 'bamm',
             'queue': 'high',
