@@ -22,5 +22,5 @@ to use port 32775. In your EnTK script, while creating the AppManager you need t
 
 ```
 # Create Application Manager
-appman = AppManager(port=32776)
+appman = AppManager(port=32775)
 ```
