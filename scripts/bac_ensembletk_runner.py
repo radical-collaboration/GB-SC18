@@ -6,8 +6,8 @@ import json
 import shutil
 
 from radical.ensemblemd import Kernel
-#from radical.ensemblemd import PoE
-from radical.ensemblemd import EoP
+from radical.ensemblemd import PoE
+#from radical.ensemblemd import EoP
 from radical.ensemblemd import EnsemblemdError
 from radical.ensemblemd import ResourceHandle
 
@@ -33,10 +33,10 @@ if os.environ.get('RADICAL_ENTK_VERBOSE') == None:
 
 # ------------------------------------------------------------------------------
 #
-class RunNAMD(EoP):
+class RunNAMD(PoE):
 
 	def __init__(self, stages, instances):
-		EoP.__init__(self, stages, instances)
+		PoE.__init__(self, stages, instances)
 
 		#/move data
 	def stage_1(self, instance):
@@ -159,6 +159,7 @@ if __name__ == "__main__":
 		my_list = []
 
 		for subdir, dirs, files in os.walk(rootdir):
+
 			for file in files:
 				#print os.path.join(subdir, file)
 				my_list.append(os.path.join(subdir, file))
@@ -177,7 +178,7 @@ if __name__ == "__main__":
 				resource=resource,
 				cores=totalcores,
 				walltime=720,
-				username=config[resource]['user'],
+				#username=config[resource]['user'],
 
 				project=config[resource]['project'],
 				access_schema = config[resource]['schema'],

@@ -41,10 +41,10 @@ def generate_pipeline(replica_ind):
                     'find -L {input1} -type f -print0 | xargs -0 sed -i \'s/REPX/{input2}/g\' ; mkdir -p {input1}/replicas/rep{input2}/equilibration; touch {input1}/replicas/rep{input2}/equilibration/holder; mkdir -p {input1}/replicas/rep{input2}/simulation; touch {input1}/replicas/rep{input2}/simulation/holder'.format(input1 = rootdir , input2 = replica_ind)]
     t2.cores = 1
     
-    t2.link_input_data = []
+    t2.copy_input_data = []
     
     for f in my_list:
-        t2.link_input_data.append("{stage1}/".format(stage1=stage_1_ref)+f+" > "+f)
+        t2.copy_input_data.append("{stage1}/".format(stage1=stage_1_ref)+f+" > "+f)
 
     stage_2_ref = "$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s2.uid, t2.uid)
     s2.add_tasks(t2)
@@ -62,10 +62,10 @@ def generate_pipeline(replica_ind):
     t3.cores = coresp
     t3.mpi = True
 
-    t3.link_input_data = ['{stage2}/{input1}/replicas/rep{input2}/equilibration/holder > {input1}/replicas/rep{input2}/equilibration/holder'.format(stage2=stage_2_ref,input1 = rootdir, input2=replica_ind)]
+    t3.copy_input_data = ['{stage2}/{input1}/replicas/rep{input2}/equilibration/holder > {input1}/replicas/rep{input2}/equilibration/holder'.format(stage2=stage_2_ref,input1 = rootdir, input2=replica_ind)]
 
     for f in my_list:
-        t3.link_input_data.append("{stage2}/".format(stage2=stage_2_ref)+f+" > "+f)
+        t3.copy_input_data.append("{stage2}/".format(stage2=stage_2_ref)+f+" > "+f)
     
     stage_3_ref = "$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s3.uid, t3.uid)
     s3.add_tasks(t3)
@@ -75,7 +75,6 @@ def generate_pipeline(replica_ind):
 
     #---------------------------------------------------------------------------
     # Stage 4
-    '''
     s4 = Stage()
     t4 = Task()
     t4.name = 'stage4_namd'
@@ -84,13 +83,13 @@ def generate_pipeline(replica_ind):
     t4.cores = coresp
     t4.mpi = True
 
-    t4.link_input_data = [
+    t4.copy_input_data = [
         '{stage3}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage3=stage_3_ref,input1 = rootdir, input2 = replica_ind), 
         '{stage3}/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(stage3=stage_3_ref, input1 = rootdir, input2 = replica_ind), 
         '{stage3}/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(stage3=stage_3_ref, input1 = rootdir, input2 = replica_ind)]
 
     for f in my_list:
-        t4.link_input_data.append("{stage3}/".format(stage3=stage_3_ref)+f+" > "+f)
+        t4.copy_input_data.append("{stage3}/".format(stage3=stage_3_ref)+f+" > "+f)
 
     stage_4_ref = "$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s4.uid, t4.uid)
     s4.add_tasks(t4)
@@ -109,7 +108,7 @@ def generate_pipeline(replica_ind):
     t5.cores = coresp
     t5.mpi = True
 
-    t5.link_input_data = [
+    t5.copy_input_data = [
         '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage4=stage_4_ref,input1 = rootdir, input2 = replica_ind), 
         '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(stage4=stage_4_ref,input1 = rootdir, input2 = replica_ind), 
         '{stage4}/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(stage4=stage_4_ref,input1 = rootdir, input2 = replica_ind),
@@ -119,7 +118,7 @@ def generate_pipeline(replica_ind):
 
 
     for f in my_list:
-        t5.link_input_data.append("{stage4}/".format(stage4=stage_4_ref)+f+" > "+f)
+        t5.copy_input_data.append("{stage4}/".format(stage4=stage_4_ref)+f+" > "+f)
 
     stage_5_ref = "$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s5.uid, t5.uid)
     s5.add_tasks(t5)
@@ -138,7 +137,7 @@ def generate_pipeline(replica_ind):
     t6.cores = coresp
     t6.mpi = True
 
-    t6.link_input_data = [
+    t6.copy_input_data = [
         '{stage2}/{input1}/replicas/rep{input2}/simulation/holder > {input1}/replicas/rep{input2}/simulation/holder'.format(stage2=stage_2_ref,input1 = rootdir, input2=replica_ind), 
         '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage5=stage_5_ref,input1 = rootdir, input2 = replica_ind), 
         '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(stage5=stage_5_ref,input1 = rootdir, input2 = replica_ind), 
@@ -151,7 +150,7 @@ def generate_pipeline(replica_ind):
         '{stage5}/{input1}/replicas/rep{input2}/equilibration/eq2.coor > {input1}/replicas/rep{input2}/equilibration/eq2.coor'.format(stage5=stage_5_ref,input1 = rootdir, input2 = replica_ind)]
 
     for f in my_list:
-        t6.link_input_data.append("{stage5}/".format(stage5=stage_5_ref,)+f+" > "+f)
+        t6.copy_input_data.append("{stage5}/".format(stage5=stage_5_ref,)+f+" > "+f)
 
     stage_6_ref = "$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s6.uid, t6.uid)
     s6.add_tasks(t6)
@@ -168,7 +167,7 @@ def generate_pipeline(replica_ind):
     t7.executable = ["/bin/bash"]
     t7.arguments = ['-l', '-c', 'tar -hczf {input1}.tgz -C {input2}/replicas .'.format(input1 = 'rep%s'%replica_ind, input2 = rootdir)]
     t7.cores = 1
-    t7.link_input_data = [
+    t7.copy_input_data = [
         '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq0.coor > {input1}/replicas/rep{input2}/equilibration/eq0.coor'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind), 
         '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq0.xsc > {input1}/replicas/rep{input2}/equilibration/eq0.xsc'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind), 
         '{stage6}/{input1}/replicas/rep{input2}/equilibration/eq0.vel > {input1}/replicas/rep{input2}/equilibration/eq0.vel'.format(stage6=stage_6_ref,input1 = rootdir, input2 = replica_ind),
@@ -186,7 +185,6 @@ def generate_pipeline(replica_ind):
     s7.add_tasks(t7)      
 
     p.add_stages(s7)
-    '''
     #---------------------------------------------------------------------------
 
     return p
@@ -206,7 +204,7 @@ if __name__ == '__main__':
                 my_list.append(os.path.join(subdir, file))
 
         pipelines = []
-        num_pipelines=1
+        num_pipelines=8
         
         for cnt in range(num_pipelines):
             pipelines.append(generate_pipeline(cnt+1))
@@ -217,7 +215,7 @@ if __name__ == '__main__':
         # resource is 'local.localhost' to execute locally
         res_dict = {
             'resource': 'ncsa.bw_aprun',
-            'walltime': 60,
+            'walltime': 1440,
             'cores': num_pipelines * 8,
             'project': 'bamm',
             'queue': 'high',
@@ -228,7 +226,7 @@ if __name__ == '__main__':
         rman.shared_data = [rootdir + '.tgz']
 
         # Create Application Manager
-        appman = AppManager(hostname='locahost')
+        appman = AppManager()
 
         # Assign resource manager to the Application Manager
         appman.resource_manager = rman
