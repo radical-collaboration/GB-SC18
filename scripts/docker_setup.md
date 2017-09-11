@@ -17,10 +17,10 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 fb8ee8bfd822        rabbitmq:3          "docker-entrypoint..."   9 seconds ago       Up 7 seconds        0.0.0.0:32777->4369/tcp, 0.0.0.0:32776->5671/tcp, 0.0.0.0:32775->5672/tcp, 0.0.0.0:32774->25672/tcp   rabbit-1
 ```
 
-Interactions between RabbitMQ and EnTK are done through port 5671 by default. For the above docker instance, we need
-to use port 32776. In your EnTK script, while creating the AppManager you need to specify ```port=32776```.
+Interactions between RabbitMQ and EnTK are done through port 5672 by default. For the above docker instance, we need
+to use port 32775. In your EnTK script, while creating the AppManager you need to specify ```port=32776```.
 
 ```
 # Create Application Manager
-appman = AppManager(port=32776)
+appman = AppManager(port=32775)
 ```
