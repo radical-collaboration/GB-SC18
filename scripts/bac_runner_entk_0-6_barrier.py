@@ -129,7 +129,7 @@ def generate_pipeline(num_tasks):
     s5 = Stage()
 
     # List of references to tasks in stage 5
-    stage_4_ref = list()
+    stage_5_ref = list()
 
     # Add tasks to stage 5
     for replica_ind in range(num_tasks):
@@ -164,7 +164,7 @@ def generate_pipeline(num_tasks):
     s6 = Stage()
 
     # List of references to tasks in stage 6
-    stage_4_ref = list()
+    stage_6_ref = list()
 
     # Add tasks to stage 6
     for replica_ind in range(num_tasks):
@@ -202,7 +202,7 @@ def generate_pipeline(num_tasks):
     s7 = Stage()
 
     # List of references to tasks in stage 7
-    stage_4_ref = list()
+    stage_7_ref = list()
 
     # Add tasks to stage 7
     for replica_ind in range(num_tasks):
