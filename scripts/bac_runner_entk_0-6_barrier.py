@@ -30,7 +30,7 @@ def generate_pipeline(num_tasks):
         t1.cores = 1
         t1.copy_input_data  = ["$SHARED/"+rootdir+".tgz > "+rootdir+".tgz"]
 
-        stage_1_ref += "$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s1.uid, t1.uid)
+        stage_1_ref.append("$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s1.uid, t1.uid))
 
         s1.add_tasks(t1)
     
@@ -59,7 +59,7 @@ def generate_pipeline(num_tasks):
         for f in my_list:
             t2.copy_input_data.append("{stage1}/".format(stage1=stage_1_ref[replica_ind])+f+" > "+f)
 
-        stage_2_ref += "$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s2.uid, t2.uid)
+        stage_2_ref.append("$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s2.uid, t2.uid))
         s2.add_tasks(t2)
 
     p.add_stages(s2)
@@ -86,7 +86,7 @@ def generate_pipeline(num_tasks):
         for f in my_list:
             t3.copy_input_data.append("{stage2}/".format(stage2=stage_2_ref[replica_ind])+f+" > "+f)
     
-        stage_3_ref += "$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s3.uid, t3.uid)
+        stage_3_ref.append("$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s3.uid, t3.uid))
         s3.add_tasks(t3)
 
     p.add_stages(s3)
@@ -117,7 +117,7 @@ def generate_pipeline(num_tasks):
         for f in my_list:
             t4.copy_input_data.append("{stage3}/".format(stage3=stage_3_ref[replica_ind])+f+" > "+f)
 
-        stage_4_ref += "$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s4.uid, t4.uid)
+        stage_4_ref.append("$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s4.uid, t4.uid))
         s4.add_tasks(t4)
 
     p.add_stages(s4)
@@ -129,7 +129,7 @@ def generate_pipeline(num_tasks):
     s5 = Stage()
 
     # List of references to tasks in stage 5
-    stage_4_ref = list()
+    stage_5_ref = list()
 
     # Add tasks to stage 5
     for replica_ind in range(num_tasks):
@@ -152,7 +152,7 @@ def generate_pipeline(num_tasks):
         for f in my_list:
             t5.copy_input_data.append("{stage4}/".format(stage4=stage_4_ref[replica_ind])+f+" > "+f)
 
-        stage_5_ref = "$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s5.uid, t5.uid)
+        stage_5_ref.append("$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s5.uid, t5.uid))
         s5.add_tasks(t5)
 
     p.add_stages(s5)
@@ -164,7 +164,7 @@ def generate_pipeline(num_tasks):
     s6 = Stage()
 
     # List of references to tasks in stage 6
-    stage_4_ref = list()
+    stage_6_ref = list()
 
     # Add tasks to stage 6
     for replica_ind in range(num_tasks):
@@ -190,7 +190,7 @@ def generate_pipeline(num_tasks):
         for f in my_list:
             t6.copy_input_data.append("{stage5}/".format(stage5=stage_5_ref[replica_ind])+f+" > "+f)
 
-        stage_6_ref = "$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s6.uid, t6.uid)
+        stage_6_ref.append("$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s6.uid, t6.uid))
         s6.add_tasks(t6)
 
     p.add_stages(s6)
@@ -202,7 +202,7 @@ def generate_pipeline(num_tasks):
     s7 = Stage()
 
     # List of references to tasks in stage 7
-    stage_4_ref = list()
+    stage_7_ref = list()
 
     # Add tasks to stage 7
     for replica_ind in range(num_tasks):
@@ -249,7 +249,7 @@ if __name__ == '__main__':
                 my_list.append(os.path.join(subdir, file))
 
         pipelines = set()
-        num_tasks=1
+        num_tasks=8
     
         pipelines.add(generate_pipeline(num_tasks))
 
@@ -259,7 +259,7 @@ if __name__ == '__main__':
         # resource is 'local.localhost' to execute locally
         res_dict = {
             'resource': 'ncsa.bw_aprun',
-            'walltime': 60,
+            'walltime': 1440,
             'cores': num_tasks * 8,
             'project': 'bamm',
             'queue': 'high',
@@ -270,7 +270,7 @@ if __name__ == '__main__':
         rman.shared_data = [rootdir + '.tgz']
 
         # Create Application Manager
-        appman = AppManager(hostname='locahost')
+        appman = AppManager(port=32775)
 
         # Assign resource manager to the Application Manager
         appman.resource_manager = rman
