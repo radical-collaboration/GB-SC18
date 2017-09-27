@@ -1,0 +1,128 @@
+-I: Adding /home/dave/apps/amber14/dat/leap/prep to search path.
+-I: Adding /home/dave/apps/amber14/dat/leap/lib to search path.
+-I: Adding /home/dave/apps/amber14/dat/leap/parm to search path.
+-I: Adding /home/dave/apps/amber14/dat/leap/cmd to search path.
+-I: Adding /net/dirac/mnt/store6/dave/janssen/store/system_descriptions/ties/ff_lib to search path.
+-I: Adding /home/dave/apps/amber14/dat/mtkpp/ZAFF/201108/ to search path.
+-s: Ignoring startup file: leaprc
+-f: Source /net/dirac/mnt/store6/dave/janssen/store/ties/bace1/com/drug/b01/b01/build/mmpbsa_leap.in.
+
+Welcome to LEaP!
+Sourcing: /net/dirac/mnt/store6/dave/janssen/store/ties/bace1/com/drug/b01/b01/build/mmpbsa_leap.in
+----- Source: /home/dave/apps/amber14/dat/leap/cmd/oldff/leaprc.ff99SBildn
+----- Source of /home/dave/apps/amber14/dat/leap/cmd/oldff/leaprc.ff99SBildn done
+Log file: ./leap.log
+Loading parameters: /home/dave/apps/amber14/dat/leap/parm/parm99.dat
+Reading title:
+PARM99 for DNA,RNA,AA, organic molecules, TIP3P wat. Polariz.& LP incl.02/04/99
+Loading parameters: /home/dave/apps/amber14/dat/leap/parm/frcmod.ff99SBildn
+Reading force field modification type file (frcmod)
+Reading title:
+Modification/update of parm99.dat (Hornak & Simmerling) + ILDN corrections
+Loading library: /home/dave/apps/amber14/dat/leap/lib/all_nucleic94.lib
+Loading library: /home/dave/apps/amber14/dat/leap/lib/all_amino94ildn.lib
+Loading library: /home/dave/apps/amber14/dat/leap/lib/all_aminoct94ildn.lib
+Loading library: /home/dave/apps/amber14/dat/leap/lib/all_aminont94ildn.lib
+Loading library: /home/dave/apps/amber14/dat/leap/lib/ions94.lib
+Loading library: /home/dave/apps/amber14/dat/leap/lib/solvents.lib
+----- Source: /home/dave/apps/amber14/dat/leap/cmd/leaprc.gaff
+----- Source of /home/dave/apps/amber14/dat/leap/cmd/leaprc.gaff done
+Log file: ./leap.log
+Loading parameters: /home/dave/apps/amber14/dat/leap/parm/gaff.dat
+Reading title:
+AMBER General Force Field for organic molecules (Version 1.7, Nov 2013)
+Loading library: /home/dave/apps/amber14/dat/leap/lib/atomic_ions.lib
+Loading parameters: /home/dave/apps/amber14/dat/leap/parm/frcmod.ions1lsm_hfe_tip3p
+Reading force field modification type file (frcmod)
+Reading title:
+Monovalent ion parameters(HFE set) for Particle Mesh Ewald and TIP3P water model from Li, Song and Merz (JCTC, 2015, 11, 1645-1657)
+Loading parameters: /home/dave/apps/amber14/dat/leap/parm/frcmod.ionslrcm_hfe_tip3p
+Reading force field modification type file (frcmod)
+Reading title:
+Divalent ion parameters(HFE set) for Particle Mesh Ewald and TIP3P water model from Li, Roberts, Chakravorty and Merz (JCTC 2013, 9, 2733-2748) 
+Loading Prep file: /home/dave/apps/amber14/dat/mtkpp/ZAFF/201108//ZAFF.prep
+Loading parameters: /home/dave/apps/amber14/dat/mtkpp/ZAFF/201108//ZAFF.frcmod
+Reading force field modification type file (frcmod)
+Reading title:
+ZAFF parameter set created by MTK++/MCPB 
+Loading parameters: /net/dirac/mnt/store6/dave/janssen/store/system_descriptions/ties/drugs_par/bace1/resp/b01/b01.frcmod
+Reading force field modification type file (frcmod)
+Reading title:
+merged frcmod
+Loading library: /net/dirac/mnt/store6/dave/janssen/store/system_descriptions/ties/drugs_par/bace1/resp/b01/b01.lib
+Loading PDB file: /net/dirac/mnt/store6/dave/janssen/store/ties/bace1/com/drug/b01/b01/build/lig.pdb
+  total atoms in file: 65
+Checking Unit.
+ERROR: The unperturbed charge of the unit: 0.911150 is not integral.
+WARNING: The unperturbed charge of the unit: 0.911150 is not zero.
+
+ -- ignoring the error and warning.
+
+Building topology.
+Building atom parameters.
+Building bond parameters.
+Building angle parameters.
+Building proper torsion parameters.
+Building improper torsion parameters.
+ total 23 improper torsions applied
+Building H-Bond parameters.
+Incorporating Non-Bonded adjustments.
+Not Marking per-residue atom chain types.
+Marking per-residue atom chain types.
+ (no restraints)
+Loading PDB file: /net/dirac/mnt/store6/dave/janssen/store/ties/bace1/com/drug/b01/b01/build/rec.pdb
+  total atoms in file: 6027
+Checking Unit.
+WARNING: The unperturbed charge of the unit: -11.000000 is not zero.
+
+ -- ignoring the warning.
+
+Building topology.
+Building atom parameters.
+Building bond parameters.
+Building angle parameters.
+Building proper torsion parameters.
+Building improper torsion parameters.
+ total 1267 improper torsions applied
+Building H-Bond parameters.
+Incorporating Non-Bonded adjustments.
+Not Marking per-residue atom chain types.
+Marking per-residue atom chain types.
+  (Residues lacking connect0/connect1 - 
+   these don't have chain types marked:
+
+	res	total affected
+
+	CASN	1
+	NARG	1
+  )
+ (no restraints)
+Loading PDB file: /net/dirac/mnt/store6/dave/janssen/store/ties/bace1/com/drug/b01/b01/build/com.pdb
+  total atoms in file: 6092
+Checking Unit.
+ERROR: The unperturbed charge of the unit: -10.088850 is not integral.
+WARNING: The unperturbed charge of the unit: -10.088850 is not zero.
+
+ -- ignoring the error and warning.
+
+Building topology.
+Building atom parameters.
+Building bond parameters.
+Building angle parameters.
+Building proper torsion parameters.
+Building improper torsion parameters.
+ total 1290 improper torsions applied
+Building H-Bond parameters.
+Incorporating Non-Bonded adjustments.
+Not Marking per-residue atom chain types.
+Marking per-residue atom chain types.
+  (Residues lacking connect0/connect1 - 
+   these don't have chain types marked:
+
+	res	total affected
+
+	CASN	1
+	NARG	1
+  )
+ (no restraints)
+	Quit
