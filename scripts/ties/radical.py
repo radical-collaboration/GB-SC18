@@ -10,7 +10,7 @@ if os.environ.get('RADICAL_ENTK_VERBOSE') == None:
 
 class NamdTask(Task):
     def __init__(self, name, cores, mpi=True):
-        super().__init__()
+        super(NamdTask, self).__init__()
         t.name = name
         t.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
         t.cores = cores
@@ -19,15 +19,17 @@ class NamdTask(Task):
 
 if __name__ == '__main__':
     # Set up parameters
+
     cores_per_pipeline = 8
     rootdir = 'bace1_b01'
     pipelines = set()
     replicas = 5
-    lambdas = [0.0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0]
+    lambdas  = [0.0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0]
     workflow = ['min', 'eq1', 'eq2', 'prod']
 
 
     # Generate pipelines
+
     for replica in range(replicas):
         for ld in lambdas:
             p = Pipeline()
@@ -53,7 +55,11 @@ if __name__ == '__main__':
 
     # Create Resource Manager object with the above resource description
     rman = ResourceManager(res_dict)
-    rman.shared_data = [rootdir + '.tgz']
+
+    # FIXME this is not going to work. `rootdir` has to be copied over, but
+    # only once. If `rootdir` is tarred up, then you have to untar it at then
+    # other end. Where would you put that 1 untaring proccess?
+    rman.shared_data = [rootdir]
 
     # Create Application Manager
     appman = AppManager(port=32775)
