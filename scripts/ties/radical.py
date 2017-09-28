@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
             for step in workflow:
                 s, t = Stage(), NamdTask(name=step, cores=cores_per_pipeline)
-                t.arguments = ['replica_{}/lambda_{}/{}.conf'.format(replica, ld, task)]
+                t.arguments = ['replica_{}/lambda_{}/{}.conf'.format(replica, ld, task), '&>', 'replica_{}/lambda_{}/{}.log'.format(replica, ld, task)]
                 s.add_tasks(t)
                 p.add_stage(s)
 

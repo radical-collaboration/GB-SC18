@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#PBS -l walltime=00:15:00
-#PBS -l nodes=1:ppn=32:xe
+#PBS -l walltime=02:00:00
+#PBS -l nodes=65:ppn=32:xe
 cd $PBS_O_WORKDIR
 module swap PrgEnv-cray PrgEnv-gnu
 export OMP_NUM_THREADS=1
