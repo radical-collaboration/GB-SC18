@@ -11,10 +11,10 @@ if os.environ.get('RADICAL_ENTK_VERBOSE') == None:
 class NamdTask(Task):
     def __init__(self, name, cores, mpi=True):
         super(NamdTask, self).__init__()
-        t.name = name
-        t.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
-        t.cores = cores
-        t.mpi = mpi
+        self.name = name
+        self.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
+        self.cores = cores
+        self.mpi = mpi
 
 
 if __name__ == '__main__':
@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
             for step in workflow:
                 s, t = Stage(), NamdTask(name=step, cores=cores_per_pipeline)
-                t.arguments = ['replica_{}/lambda_{}/{}.conf'.format(replica, ld, task), '&>', 'replica_{}/lambda_{}/{}.log'.format(replica, ld, task)]
+                t.arguments = ['replica_{}/lambda_{}/{}.conf'.format(replica, ld, step), '&>', 'replica_{}/lambda_{}/{}.log'.format(replica, ld, step)]
                 s.add_tasks(t)
                 p.add_stage(s)
 
