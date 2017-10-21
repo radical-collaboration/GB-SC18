@@ -244,7 +244,7 @@ if __name__ == '__main__':
 
 
     try:
-        coresp = 8
+        coresp = 32		
         rootdir = '2j6m-a698g'
         my_list = []
         
@@ -266,7 +266,9 @@ if __name__ == '__main__':
             'resource': 'ncsa.bw_aprun',
             'walltime': 1440,
             'cores': num_tasks * 8,
-            'project': 'bamm',
+            'cpus': 8,
+            'gpus': 8,
+	    'project': 'bamm',
             'queue': 'high',
             'access_schema': 'gsissh'}
 
