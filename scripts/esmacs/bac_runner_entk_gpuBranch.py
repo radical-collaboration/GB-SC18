@@ -254,7 +254,7 @@ if __name__ == '__main__':
                 my_list.append(os.path.join(subdir, file))
 
         pipelines = set()
-        num_tasks=8
+        num_tasks=16
     
         pipelines.add(generate_pipeline(num_tasks))
 
@@ -265,9 +265,7 @@ if __name__ == '__main__':
         res_dict = {
             'resource': 'ncsa.bw_aprun',
             'walltime': 1440,
-            'cores': num_tasks * 8,
-            'cpus': 8,
-            'gpus': 8,
+            'cpus': num_tasks * coresp,
 	    'project': 'bamm',
             'queue': 'high',
             'access_schema': 'gsissh'}
