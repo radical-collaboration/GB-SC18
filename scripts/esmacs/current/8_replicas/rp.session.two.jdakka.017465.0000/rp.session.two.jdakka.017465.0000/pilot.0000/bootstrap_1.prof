@@ -1,0 +1,14 @@
+#time,name,uid,state,event,msg
+0.0068,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,bootstrap_1_start,
+0.2710,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,ve_setup_start,
+1.2513,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,ve_activate_start,
+8.9803,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,ve_activate_stop,
+8.9922,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,rp_install_start,
+38.5920,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,rp_install_stop,
+38.6031,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,ve_setup_stop,
+38.6158,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,ve_activate_start,
+51.1647,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,sync_rel,agent_0 start
+2710.5890,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,cleanup_start,
+2710.6155,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,cleanup_stop,
+2710.6386,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,bootstrap_1_stop,
+2710.6493,bootstrap_1,pilot.0000,PMGR_ACTIVE_PENDING,END,
