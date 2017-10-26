@@ -1,2 +1,7 @@
 #time,name,uid,state,event,msg
 1509038032.2883,update.0:,,,sync abs,localhost.localdomain:138.201.86.166:1509038032.28:1509038032.28:ntp
+#time,name,uid,state,event,msg
+1509038032.2883,update.0:,,,sync abs,localhost.localdomain:138.201.86.166:1509038032.28:1509038032.28:ntp
+1509038032.9243,update.0:MainThread,,,component_init,
+1509041266.0031,update.0:MainThread,,,component_final,
+1509041266.0031,update.0:MainThread,,,END,
