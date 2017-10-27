@@ -1,0 +1,14 @@
+#time,name,uid,state,event,msg
+1509121048.6534,radical.entk.resource_manager.0000:,,,sync abs,localhost.localdomain:138.201.86.166:1509121048.64:1509121048.64:ntp
+1509121048.6539,radical.entk.resource_manager.0000:MainThread,radical.entk.resource_manager.0000,,create rmgr obj,
+1509121048.6540,radical.entk.resource_manager.0000:MainThread,radical.entk.resource_manager.0000,,validating rdesc,
+1509121048.6540,radical.entk.resource_manager.0000:MainThread,radical.entk.resource_manager.0000,,rdesc validated,
+1509121048.6541,radical.entk.resource_manager.0000:MainThread,radical.entk.resource_manager.0000,,populating rmgr,
+1509121048.6541,radical.entk.resource_manager.0000:MainThread,radical.entk.resource_manager.0000,,rmgr populated,
+1509121048.6541,radical.entk.resource_manager.0000:MainThread,radical.entk.resource_manager.0000,,rmgr obj created,
+1509121048.9419,radical.entk.resource_manager.0000:MainThread,radical.entk.resource_manager.0000,,creating rreq,
+1509121051.2099,radical.entk.resource_manager.0000:MainThread,radical.entk.resource_manager.0000,,rreq created,
+1509121067.4310,radical.entk.resource_manager.0000:MainThread,radical.entk.resource_manager.0000,,rreq submitted,
+1509122782.3654,radical.entk.resource_manager.0000:MainThread,radical.entk.resource_manager.0000,,resource active,
+1509126169.1472,radical.entk.resource_manager.0000:MainThread,radical.entk.resource_manager.0000,,canceling resource allocation,
+1509126211.3824,radical.entk.resource_manager.0000:MainThread,radical.entk.resource_manager.0000,,resource allocation cancelled,
