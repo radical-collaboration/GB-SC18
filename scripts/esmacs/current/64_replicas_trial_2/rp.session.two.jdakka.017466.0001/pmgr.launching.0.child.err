@@ -1,0 +1,17 @@
+2017-10-30 16:33:56,204: radical.saga.pty    : pmgr.launching.0                : MainThread     : ERROR   : flushing failed
+Traceback (most recent call last):
+  File "/home/jdakka/UCL/gpu_branch_env/venv/local/lib/python2.7/site-packages/saga/utils/pty_process.py", line 174, in flush
+    tmp = self.read (timeout=0.1)
+  File "/home/jdakka/UCL/gpu_branch_env/venv/local/lib/python2.7/site-packages/saga/utils/pty_process.py", line 679, in read
+    % (e, self.tail))
+NoSuccess: read from process failed '[Errno 5] Input/output error' : (86f6e2d302e34372d76302e34362d32332d6732316362346539642d666561747572652d6770752e7461722e677a0a
+PROMPT-0->
+
+OK
+
+PROMPT-0->
+
+trapped EXIT
+cmd_quit called (1)PROMPT-1->timed out waiting for input: auto-logout
+Shared connection to bw.ncsa.illinois.edu closed.
+) (/home/jdakka/UCL/gpu_branch_env/venv/local/lib/python2.7/site-packages/saga/utils/pty_process.py +679 (read)  :  % (e, self.tail)))
