@@ -1,0 +1,2 @@
+#time,name,uid,state,event,msg
+1508795999.3036,agent.staging.input.0:,,,sync abs,nid25435:10.128.100.36:1508795999.29:1508795999.29:ntp

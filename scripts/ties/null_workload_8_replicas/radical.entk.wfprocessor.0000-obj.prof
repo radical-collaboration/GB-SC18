@@ -1,0 +1,8 @@
+#time,name,uid,state,event,msg
+1508793628.7467,radical.entk.wfprocessor.0000-obj:,,,sync abs,localhost.localdomain:138.201.86.166:1508793628.73:1508793628.74:ntp
+1508793628.7477,radical.entk.wfprocessor.0000-obj:MainThread,radical.entk.wfprocessor.0000,,create wfp obj,
+1508793628.7481,radical.entk.wfprocessor.0000-obj:MainThread,radical.entk.wfprocessor.0000,,wfp obj created,
+1508793628.7490,radical.entk.wfprocessor.0000-obj:MainThread,radical.entk.wfprocessor.0000,,creating wfp process,
+1508793628.7507,radical.entk.wfprocessor.0000-obj:MainThread,radical.entk.wfprocessor.0000,,starting wfp process,
+1508793666.2064,radical.entk.wfprocessor.0000-obj:MainThread,radical.entk.wfprocessor.0000,,wfp process terminated,
+1508793666.2064,radical.entk.wfprocessor.0000-obj:MainThread,,,END,

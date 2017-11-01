@@ -1,0 +1,26 @@
+#time,name,uid,state,event,msg
+1508794136.8560,radical.entk.appmanager.0000:,,,sync abs,localhost.localdomain:138.201.86.166:1508794136.85:1508794136.85:ntp
+1508794136.8563,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,create amgr obj,
+1508794136.8564,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,amgr obj created,
+1508794136.8564,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,assigning workflow,
+1508794136.8564,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,validating workflow,
+1508794136.8565,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,workflow validated,
+1508794136.8566,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,amgr run started,
+1508794136.8566,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,init mqs setup,
+1508794137.1001,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,mqs setup done,
+1508794137.1003,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,init rreq submission,
+1508794153.8014,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,start termination,
+1508794662.9119,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,termination done,
+#time,name,uid,state,event,msg
+1508795552.8356,radical.entk.appmanager.0000:,,,sync abs,localhost.localdomain:138.201.86.166:1508795552.83:1508795552.83:ntp
+1508795552.8359,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,create amgr obj,
+1508795552.8361,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,amgr obj created,
+1508795552.8361,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,assigning workflow,
+1508795552.8361,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,validating workflow,
+1508795552.8361,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,workflow validated,
+1508795552.8362,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,amgr run started,
+1508795552.8363,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,init mqs setup,
+1508795553.0960,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,mqs setup done,
+1508795553.0961,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,init rreq submission,
+1508795569.5884,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,start termination,
+1508796078.8822,radical.entk.appmanager.0000:MainThread,radical.entk.appmanager.0000,,termination done,

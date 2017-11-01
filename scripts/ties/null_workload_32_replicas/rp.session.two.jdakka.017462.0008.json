@@ -1,0 +1,268 @@
+{
+    "pilot": [
+        {
+            "_id": "pilot.0000", 
+            "cancel_requested": 1508795593.047993, 
+            "cfg": {
+                "agent_launch_method": "APRUN", 
+                "bridges": {
+                    "agent_executing_queue": {
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }, 
+                    "agent_schedule_pubsub": {
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }, 
+                    "agent_scheduling_queue": {
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }, 
+                    "agent_staging_input_queue": {
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }, 
+                    "agent_staging_output_queue": {
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }, 
+                    "agent_unschedule_pubsub": {
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }, 
+                    "control_pubsub": {
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }, 
+                    "log_pubsub": {
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }, 
+                    "state_pubsub": {
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }
+                }, 
+                "bulk_collection_size": 100, 
+                "bulk_collection_time": 1.0, 
+                "components": {
+                    "AgentExecutingComponent": {
+                        "count": 1
+                    }, 
+                    "AgentSchedulingComponent": {
+                        "count": 1
+                    }, 
+                    "AgentStagingInputComponent": {
+                        "count": 1
+                    }, 
+                    "AgentStagingOutputComponent": {
+                        "count": 1
+                    }, 
+                    "UpdateWorker": {
+                        "count": 1
+                    }
+                }, 
+                "cores": 1024, 
+                "cores_per_node": 0, 
+                "cu_post_exec": null, 
+                "cu_pre_exec": null, 
+                "cu_tmp": null, 
+                "db_poll_sleeptime": 1.0, 
+                "dburl": "mongodb://jdakka:jdakka@ds151993.mlab.com:51993/entk-testing", 
+                "debug": 10, 
+                "export_to_cu": null, 
+                "gpus": 0, 
+                "gpus_per_node": 0, 
+                "logdir": ".", 
+                "lrms": "TORQUE", 
+                "max_io_loglength": 1024, 
+                "mode": "shared", 
+                "mpi_launch_method": "APRUN", 
+                "owner": "agent_0", 
+                "pilot_id": "pilot.0000", 
+                "pilot_sandbox": "/scratch/sciteam/dakka/radical.pilot.sandbox/rp.session.two.jdakka.017462.0008/pilot.0000/", 
+                "resource_cfg": {
+                    "agent_launch_method": "APRUN", 
+                    "agent_scheduler": "CONTINUOUS", 
+                    "agent_spawner": "POPEN", 
+                    "default_queue": "normal", 
+                    "default_remote_workdir": "/scratch/sciteam/$USER", 
+                    "description": "The NCSA Blue Waters Cray XE6/XK7 system (https://bluewaters.ncsa.illinois.edu/)", 
+                    "filesystem_endpoint": "gsisftp://bw.ncsa.illinois.edu/", 
+                    "gsissh": {
+                        "filesystem_endpoint": "gsisftp://bw.ncsa.illinois.edu/", 
+                        "job_manager_endpoint": "torque+gsissh://bw.ncsa.illinois.edu"
+                    }, 
+                    "job_manager_endpoint": "torque+gsissh://bw.ncsa.illinois.edu", 
+                    "label": "ncsa.bw_aprun", 
+                    "lrms": "TORQUE", 
+                    "mpi_launch_method": "APRUN", 
+                    "notes": "Running 'touch .hushlogin' on the login node will reduce the likelihood of prompt detection issues.", 
+                    "pre_bootstrap_1": [
+                        "module switch PrgEnv-cray PrgEnv-gnu", 
+                        "module load bwpy"
+                    ], 
+                    "python_dist": "default", 
+                    "rp_version": "local", 
+                    "schemas": [
+                        "gsissh"
+                    ], 
+                    "stage_cacerts": "True", 
+                    "task_launch_method": "APRUN", 
+                    "valid_roots": [
+                        "/scratch/sciteam"
+                    ], 
+                    "virtenv_mode": "create"
+                }, 
+                "resource_sandbox": "/scratch/sciteam/dakka/radical.pilot.sandbox", 
+                "runtime": 1440, 
+                "scheduler": "CONTINUOUS", 
+                "session_id": "rp.session.two.jdakka.017462.0008", 
+                "session_sandbox": "/scratch/sciteam/dakka/radical.pilot.sandbox/rp.session.two.jdakka.017462.0008", 
+                "spawner": "POPEN", 
+                "staging_area": "staging_area", 
+                "staging_schema": "staging", 
+                "target": "local", 
+                "task_launch_method": "APRUN"
+            }, 
+            "client_sandbox": "/home/jdakka/UCL/gpu_branch_env/GB-SC18/scripts/ties/null_workload_32_replicas", 
+            "cmd": [
+                {
+                    "arg": [], 
+                    "cmd": "cancel_pilot"
+                }
+            ], 
+            "control": "pmgr", 
+            "description": {
+                "access_schema": "gsissh", 
+                "candidate_hosts": null, 
+                "cleanup": null, 
+                "cores": 1024, 
+                "exit_on_error": false, 
+                "gpus": 0, 
+                "memory": null, 
+                "project": "bamm", 
+                "queue": "high", 
+                "resource": "ncsa.bw_aprun", 
+                "runtime": 1440, 
+                "sandbox": null
+            }, 
+            "log": null, 
+            "pilot_sandbox": "gsisftp://bw.ncsa.illinois.edu/scratch/sciteam/dakka/radical.pilot.sandbox/rp.session.two.jdakka.017462.0008/pilot.0000/", 
+            "pmgr": "pmgr.0000", 
+            "resource": "ncsa.bw_aprun", 
+            "resource_details": null, 
+            "resource_sandbox": "gsisftp://bw.ncsa.illinois.edu/scratch/sciteam/dakka/radical.pilot.sandbox", 
+            "sandbox": "gsisftp://bw.ncsa.illinois.edu/scratch/sciteam/dakka/radical.pilot.sandbox/rp.session.two.jdakka.017462.0008/pilot.0000/", 
+            "session": "rp.session.two.jdakka.017462.0008", 
+            "state": "DONE", 
+            "states": [
+                "NEW", 
+                "PMGR_LAUNCHING_PENDING", 
+                "PMGR_LAUNCHING", 
+                "PMGR_ACTIVE_PENDING", 
+                "DONE"
+            ], 
+            "stderr": null, 
+            "stdout": null, 
+            "type": "pilot", 
+            "uid": "pilot.0000", 
+            "unit_ids": []
+        }
+    ], 
+    "pmgr": [
+        {
+            "_id": "pmgr.0000", 
+            "cfg": {
+                "bridges": {
+                    "control_pubsub": {
+                        "addr_in": "tcp://138.201.86.166:33508", 
+                        "addr_out": "tcp://138.201.86.166:41805", 
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }, 
+                    "log_pubsub": {
+                        "addr_in": "tcp://138.201.86.166:33003", 
+                        "addr_out": "tcp://138.201.86.166:43262", 
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }, 
+                    "pmgr_launching_queue": {
+                        "addr_in": "tcp://138.201.86.166:40842", 
+                        "addr_out": "tcp://138.201.86.166:42083", 
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }, 
+                    "state_pubsub": {
+                        "addr_in": "tcp://138.201.86.166:38440", 
+                        "addr_out": "tcp://138.201.86.166:45050", 
+                        "bulk_size": 0, 
+                        "log_level": "debug", 
+                        "stall_hwm": 1
+                    }
+                }, 
+                "components": {
+                    "PMGRLaunchingComponent": {
+                        "count": 1
+                    }
+                }, 
+                "db_poll_sleeptime": 10.0, 
+                "owner": "pmgr.0000", 
+                "uid": "pmgr.0000"
+            }, 
+            "type": "pmgr", 
+            "uid": "pmgr.0000"
+        }
+    ], 
+    "session": {
+        "_id": "rp.session.two.jdakka.017462.0008", 
+        "cfg": {
+            "bridges": {
+                "control_pubsub": {
+                    "bulk_size": 0, 
+                    "log_level": "debug", 
+                    "stall_hwm": 1
+                }, 
+                "log_pubsub": {
+                    "bulk_size": 0, 
+                    "log_level": "debug", 
+                    "stall_hwm": 1
+                }, 
+                "state_pubsub": {
+                    "bulk_size": 0, 
+                    "log_level": "debug", 
+                    "stall_hwm": 1
+                }
+            }, 
+            "components": {
+                "UpdateWorker": {
+                    "count": 1
+                }
+            }, 
+            "dburl": "mongodb://jdakka:jdakka@ds151993.mlab.com:51993/entk-testing", 
+            "debug": "DEBUG", 
+            "default_dburl": "mongodb://rp:rp@ds015335.mlab.com:15335/rp", 
+            "logdir": "/home/jdakka/UCL/gpu_branch_env/GB-SC18/scripts/ties/null_workload_32_replicas/rp.session.two.jdakka.017462.0008", 
+            "owner": "rp.session.two.jdakka.017462.0008", 
+            "session_id": "rp.session.two.jdakka.017462.0008"
+        }, 
+        "connected": 1508795553.771792, 
+        "created": 1508795553.230203, 
+        "type": "session", 
+        "uid": "rp.session.two.jdakka.017462.0008"
+    }, 
+    "umgr": [], 
+    "unit": []
+}

@@ -1,0 +1,5 @@
+#time,name,uid,state,event,msg
+1508795999.3451,agent.staging.input.0.child:,,,sync abs,nid25435:10.128.100.36:1508795999.34:1508795999.33:ntp
+1508795999.4508,agent.staging.input.0.child:MainThread,,,component_init,
+1508796001.4599,agent.staging.input.0.child:MainThread,,,component_final,
+1508796001.4599,agent.staging.input.0.child:MainThread,,,END,

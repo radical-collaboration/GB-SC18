@@ -1,0 +1,17 @@
+#time,name,uid,state,event,msg
+1508794138.3819,update.0.child:,,,sync abs,localhost.localdomain:138.201.86.166:1508794138.38:1508794138.38:ntp
+1508794138.9558,update.0.child:MainThread,,,component_init,
+1508794147.9776,update.0.child:update.0.child.subscriber._state_cb,pilot.0000,,update_request,PMGR_LAUNCHING_PENDING
+1508794148.0775,update.0.child:update.0.child.subscriber._state_cb,,,update_pushed,bulk size: 1
+1508794148.0775,update.0.child:update.0.child.subscriber._state_cb,pilot.0000,,update_pushed,PMGR_LAUNCHING_PENDING
+1508794148.0778,update.0.child:update.0.child.subscriber._state_cb,pilot.0000,,update_request,PMGR_LAUNCHING
+1508794150.0780,update.0.child:update.0.child.idler._idle_cb,,,update_pushed,bulk size: 1
+1508794150.0780,update.0.child:update.0.child.idler._idle_cb,pilot.0000,,update_pushed,PMGR_LAUNCHING
+1508794175.9333,update.0.child:update.0.child.subscriber._state_cb,pilot.0000,,update_request,PMGR_ACTIVE_PENDING
+1508794176.0331,update.0.child:update.0.child.subscriber._state_cb,,,update_pushed,bulk size: 1
+1508794176.0331,update.0.child:update.0.child.subscriber._state_cb,pilot.0000,,update_pushed,PMGR_ACTIVE_PENDING
+1508794656.9995,update.0.child:update.0.child.subscriber._state_cb,pilot.0000,,update_request,DONE
+1508794657.0985,update.0.child:update.0.child.subscriber._state_cb,,,update_pushed,bulk size: 1
+1508794657.0985,update.0.child:update.0.child.subscriber._state_cb,pilot.0000,,update_pushed,DONE
+1508794660.1158,update.0.child:MainThread,,,component_final,
+1508794660.1159,update.0.child:MainThread,,,END,
