@@ -260,7 +260,7 @@ if __name__ == '__main__':
         res_dict = {
             'resource': 'ncsa.bw_aprun',
             'walltime': 1440,
-            'cores': num_tasks * 8,
+            'cores': num_tasks * 8 * coresp,
             'project': 'bamm',
             'queue': 'high',
             'access_schema': 'gsissh'}
