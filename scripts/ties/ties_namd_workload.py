@@ -45,17 +45,18 @@ if __name__ == '__main__':
             for step in workflow:
                 s, t = Stage(), NamdTask(name=step, cores=cores_per_pipeline)
                 t.arguments = ['replica_{}/lambda_{}/{}.conf'.format(replica, ld, step), '&>', 'replica_{}/lambda_{}/{}.log'.format(replica, ld, step)]
-                task_ref.append(t.uid)
+                task_ref.append("$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s.uid, t.uid))
                 s.add_tasks(t)
-                p.add_stage(s)
-                for f in stage_ref:
-                    for item in workflow[:workflow.index(step)+1]:
-                        t.copy_input_data.append(f+'/replica_{}/lambda_{}/{}.coor'.format(replicas,ld,item))
-                        t.copy_input_data.append(f+'/replica_{}/lambda_{}/{}.xsc'.format(replicas,ld,item))
-                        t.copy_input_data.append(f+'/replica_{}/lambda_{}/{}.vel'.format(replicas,ld,item))
+                p.add_stages(s)
+                for task_paths in stage_ref:
+                    for task_path in task_paths: 
+                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.coor'.format(replica,ld,workflow.index(task_paths)))
+                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.xsc'.format(replica,ld,workflow.index(task_paths)))
+                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.vel'.format(replica,ld,workflow.index(task_paths)))
                 for f in my_list:
                     t.copy_input_data.append("{}/".format(replica)+f+" > "+f)
            
+            
             stage_ref.append(task_ref)
             pipelines.add(p)
 
