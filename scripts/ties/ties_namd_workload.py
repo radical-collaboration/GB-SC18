@@ -50,9 +50,9 @@ if __name__ == '__main__':
                 p.add_stages(s)
                 for task_paths in stage_ref:
                     for task_path in task_paths: 
-                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.coor'.format(replica,ld,workflow.index(task_paths)))
-                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.xsc'.format(replica,ld,workflow.index(task_paths)))
-                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.vel'.format(replica,ld,workflow.index(task_paths)))
+                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.coor'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
+                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.xsc'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
+                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.vel'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
                 for f in my_list:
                     t.copy_input_data.append("{}/".format(replica)+f+" > "+f)
            
