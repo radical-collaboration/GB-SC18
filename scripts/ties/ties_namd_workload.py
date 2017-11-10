@@ -31,8 +31,9 @@ if __name__ == '__main__':
     cores_per_pipeline = 32
     pipelines = set()
     stage_ref = []
-    replicas = 5
-    lambdas  = [0.0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0]
+    replicas = 1
+    lambdas = [0.0]
+    #lambdas  = [0.0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0]
     workflow = ['min', 'eq1', 'eq2', 'prod']
 
 
@@ -41,23 +42,27 @@ if __name__ == '__main__':
     for replica in range(replicas):
         for ld in lambdas:
             p = Pipeline()
-            task_ref = []
+           
             for step in workflow:
-                s, t = Stage(), NamdTask(name=step, cores=cores_per_pipeline)
+                task_ref = []
+		s, t = Stage(), NamdTask(name=step, cores=cores_per_pipeline)
                 t.arguments = ['replica_{}/lambda_{}/{}.conf'.format(replica, ld, step), '&>', 'replica_{}/lambda_{}/{}.log'.format(replica, ld, step)]
                 task_ref.append("$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s.uid, t.uid))
                 s.add_tasks(t)
                 p.add_stages(s)
-                for task_paths in stage_ref:
+
+		for task_paths in stage_ref:
                     for task_path in task_paths: 
-                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.coor'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
+                        print task_path 
+			print workflow[stage_ref.index(task_paths)]
+			t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.coor'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
                         t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.xsc'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
                         t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.vel'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
                 for f in my_list:
                     t.copy_input_data.append("{}/".format(replica)+f+" > "+f)
            
             
-            stage_ref.append(task_ref)
+            	stage_ref.append(task_ref)
             pipelines.add(p)
 
 
