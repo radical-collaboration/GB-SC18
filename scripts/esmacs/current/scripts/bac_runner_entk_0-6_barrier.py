@@ -76,7 +76,7 @@ def generate_pipeline(num_tasks):
     for replica_ind in range(num_tasks):
         t3 = Task()
         t3.name = 'stage3_namd'
-        t3.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
+        t3.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-ugni-BlueWaters-memopt/namd2']
         t3.arguments = ["%s/mineq_confs/eq0.conf" % rootdir]
         t3.cores = coresp
         t3.mpi = True
@@ -104,7 +104,7 @@ def generate_pipeline(num_tasks):
     for replica_ind in range(num_tasks):
         t4 = Task()
         t4.name = 'stage4_namd'
-        t4.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
+        t4.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-ugni-BlueWaters-memopt/namd2']
         t4.arguments = ["%s/mineq_confs/eq1.conf" % rootdir]
         t4.cores = coresp
         t4.mpi = True
@@ -135,7 +135,7 @@ def generate_pipeline(num_tasks):
     for replica_ind in range(num_tasks):
         t5 = Task()
         t5.name = 'stage5_namd'
-        t5.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
+        t5.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-ugni-BlueWaters-memopt/namd2']
         t5.arguments = ["%s/mineq_confs/eq2.conf" % rootdir]
         t5.cores = coresp
         t5.mpi = True
@@ -170,7 +170,7 @@ def generate_pipeline(num_tasks):
     for replica_ind in range(num_tasks):
         t6 = Task()
         t6.name = 'stage6_namd'
-        t6.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
+        t6.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-ugni-BlueWaters-memopt/namd2']
         t6.arguments = ["%s/sim_confs/sim1.conf" % rootdir]
         t6.cores = coresp
         t6.mpi = True
@@ -260,7 +260,7 @@ if __name__ == '__main__':
         res_dict = {
             'resource': 'ncsa.bw_aprun',
             'walltime': 1440,
-            'cores': num_tasks * 8 * coresp,
+            'cores': num_tasks * coresp,
             'project': 'bamm',
             'queue': 'high',
             'access_schema': 'gsissh'}
