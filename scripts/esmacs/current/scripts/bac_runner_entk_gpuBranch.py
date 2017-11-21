@@ -106,10 +106,11 @@ def generate_pipeline(num_tasks):
     for replica_ind in range(num_tasks):
         t4 = Task()
         t4.name = 'stage4_namd'
-        t4.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2 +ppn 30 +pemap 0-29 +commap 30']
-        t4.arguments = ["%s/mineq_confs/eq1.conf" % rootdir]
+        t4.pre_exec = ['export OMP_NUM_THREADS=1']
+        t4.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2']
+        t4.arguments = ['+ppn','30','+pemap', '0-29', '+commap', '30',"%s/mineq_confs/eq1.conf" % rootdir]
         t4.cores = coresp
-        t4.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 1, 'thread_type': None}
+        t4.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 31, 'thread_type': None}
         #t4.mpi = True
 
         t4.copy_input_data = [
@@ -138,10 +139,11 @@ def generate_pipeline(num_tasks):
     for replica_ind in range(num_tasks):
         t5 = Task()
         t5.name = 'stage5_namd'
-        t5.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2 +ppn 30 +pemap 0-29 +commap 30']
-        t5.arguments = ["%s/mineq_confs/eq2.conf" % rootdir]
+        t5.pre_exec = ['export OMP_NUM_THREADS=1']
+        t5.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2']
+        t5.arguments = ['+ppn','30','+pemap', '0-29', '+commap', '30',"%s/mineq_confs/eq2.conf" % rootdir]
         t5.cores = coresp
-        t5.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 1, 'thread_type': None}
+        t5.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 31, 'thread_type': None}
         #t5.mpi = True
 
         t5.copy_input_data = [
@@ -174,10 +176,11 @@ def generate_pipeline(num_tasks):
     for replica_ind in range(num_tasks):
         t6 = Task()
         t6.name = 'stage6_namd'
-        t6.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2 +ppn 30 +pemap 0-29 +commap 30']
-        t6.arguments = ["%s/sim_confs/sim1.conf" % rootdir]
+        t6.pre_exec = ['export OMP_NUM_THREADS=1']
+        t6.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2']
+        t6.arguments = ['+ppn','30','+pemap', '0-29', '+commap', '30',"%s/sim_confs/sim1.conf" % rootdir]
         t6.cores = coresp
-        t6.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 1, 'thread_type': None}
+        t6.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 31, 'thread_type': None}
         #t6.mpi = True
 
         t6.copy_input_data = [
