@@ -76,10 +76,11 @@ def generate_pipeline(num_tasks):
     for replica_ind in range(num_tasks):
         t3 = Task()
         t3.name = 'stage3_namd'
-        t3.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
-        t3.arguments = ["%s/mineq_confs/eq0.conf" % rootdir]
-        t3.cores = coresp
-        t3.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 1, 'thread_type': None}
+        t3.pre_exec = ['export OMP_NUM_THREADS=1']
+        t3.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2']
+        t3.arguments = ['+ppn','30','+pemap', '0-29', '+commap', '30',"%s/mineq_confs/eq0.conf" % rootdir]
+        #t3.cores = coresp
+        t3.cpu_reqs = {'processes': 1, 'process_type': 'MPI', 'threads_per_process': 31, 'thread_type': None}
         #t3.mpi = True
 
         t3.copy_input_data = ['{stage2}/{input1}/replicas/rep{input2}/equilibration/holder > {input1}/replicas/rep{input2}/equilibration/holder'.format(stage2=stage_2_ref[replica_ind],input1 = rootdir, input2=replica_ind)]
@@ -105,7 +106,7 @@ def generate_pipeline(num_tasks):
     for replica_ind in range(num_tasks):
         t4 = Task()
         t4.name = 'stage4_namd'
-        t4.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
+        t4.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2 +ppn 30 +pemap 0-29 +commap 30']
         t4.arguments = ["%s/mineq_confs/eq1.conf" % rootdir]
         t4.cores = coresp
         t4.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 1, 'thread_type': None}
@@ -137,7 +138,7 @@ def generate_pipeline(num_tasks):
     for replica_ind in range(num_tasks):
         t5 = Task()
         t5.name = 'stage5_namd'
-        t5.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
+        t5.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2 +ppn 30 +pemap 0-29 +commap 30']
         t5.arguments = ["%s/mineq_confs/eq2.conf" % rootdir]
         t5.cores = coresp
         t5.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 1, 'thread_type': None}
@@ -173,7 +174,7 @@ def generate_pipeline(num_tasks):
     for replica_ind in range(num_tasks):
         t6 = Task()
         t6.name = 'stage6_namd'
-        t6.executable = ['/u/sciteam/jphillip/NAMD_build.latest/NAMD_2.12_CRAY-XE-MPI-BlueWaters/namd2']
+        t6.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2 +ppn 30 +pemap 0-29 +commap 30']
         t6.arguments = ["%s/sim_confs/sim1.conf" % rootdir]
         t6.cores = coresp
         t6.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 1, 'thread_type': None}
@@ -254,7 +255,7 @@ if __name__ == '__main__':
                 my_list.append(os.path.join(subdir, file))
 
         pipelines = set()
-        num_tasks=16
+        num_tasks=8
     
         pipelines.add(generate_pipeline(num_tasks))
 
