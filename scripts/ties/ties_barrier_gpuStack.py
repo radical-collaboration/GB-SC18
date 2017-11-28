@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     cores_per_pipeline = 32
     pipelines = set()
-    stage_ref = []
+    #stage_ref = []
     replicas = 5
     lambdas  = [0.0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0]
     workflow = ['min', 'eq1', 'eq2', 'prod']
@@ -43,6 +43,7 @@ if __name__ == '__main__':
     for replica in range(replicas):
         for ld in lambdas:
             p = Pipeline()
+            stage_ref = []
             for step in workflow:
 
                 task_ref = []
@@ -54,20 +55,22 @@ if __name__ == '__main__':
                 s.add_tasks(t)
                 for task_paths in stage_ref:
                     for task_path in task_paths:
-                        print task_path 
+                        #print task_path 
                         #print count 
                         #print workflow[stage_ref.index(task_paths)]
-                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.coor'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
-                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.xsc'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
-                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.vel'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
-                
+                        t.copy_input_data.append(task_path+'replica_{0}/lambda_{1}/{2}.coor'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
+                        t.copy_input_data.append(task_path+'replica_{0}/lambda_{1}/{2}.xsc'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
+                        t.copy_input_data.append(task_path+'replica_{0}/lambda_{1}/{2}.vel'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
+
+                print t.copy_input_data
+
                 for f in my_list:
                     t.copy_input_data.append("{}/".format(replica)+f+" > "+f)
             
 
             	stage_ref.append(task_ref)
-                print stage_ref
-                print count
+                #print stage_ref
+                #print count
 
                 p.add_stages(s)
 
