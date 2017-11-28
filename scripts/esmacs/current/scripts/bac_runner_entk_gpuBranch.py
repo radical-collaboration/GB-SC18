@@ -109,8 +109,8 @@ def generate_pipeline(num_tasks):
         t4.pre_exec = ['export OMP_NUM_THREADS=1']
         t4.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2']
         t4.arguments = ['+ppn','30','+pemap', '0-29', '+commap', '30',"%s/mineq_confs/eq1.conf" % rootdir]
-        t4.cores = coresp
-        t4.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 31, 'thread_type': None}
+        #t4.cores = coresp
+        t4.cpu_reqs = {'processes': 1, 'process_type': 'MPI', 'threads_per_process': 31, 'thread_type': None}
         #t4.mpi = True
 
         t4.copy_input_data = [
@@ -142,8 +142,8 @@ def generate_pipeline(num_tasks):
         t5.pre_exec = ['export OMP_NUM_THREADS=1']
         t5.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2']
         t5.arguments = ['+ppn','30','+pemap', '0-29', '+commap', '30',"%s/mineq_confs/eq2.conf" % rootdir]
-        t5.cores = coresp
-        t5.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 31, 'thread_type': None}
+        #t5.cores = coresp
+        t5.cpu_reqs = {'processes': 1, 'process_type': 'MPI', 'threads_per_process': 31, 'thread_type': None}
         #t5.mpi = True
 
         t5.copy_input_data = [
@@ -179,8 +179,8 @@ def generate_pipeline(num_tasks):
         t6.pre_exec = ['export OMP_NUM_THREADS=1']
         t6.executable = ['/u/sciteam/jphillip/NAMD_LATEST_CRAY-XE-ugni-smp-BlueWaters/namd2']
         t6.arguments = ['+ppn','30','+pemap', '0-29', '+commap', '30',"%s/sim_confs/sim1.conf" % rootdir]
-        t6.cores = coresp
-        t6.cpu_reqs = {'processes': coresp, 'process_type': 'MPI', 'threads_per_process': 31, 'thread_type': None}
+        #t6.cores = coresp
+        t6.cpu_reqs = {'processes': 1, 'process_type': 'MPI', 'threads_per_process': 31, 'thread_type': None}
         #t6.mpi = True
 
         t6.copy_input_data = [
@@ -248,7 +248,8 @@ if __name__ == '__main__':
 
 
     try:
-        coresp = 32		
+        coresp = 32
+        generations = 2
         rootdir = '2j6m-a698g'
         my_list = []
         
@@ -258,7 +259,7 @@ if __name__ == '__main__':
                 my_list.append(os.path.join(subdir, file))
 
         pipelines = set()
-        num_tasks=8
+        num_tasks = 128
     
         pipelines.add(generate_pipeline(num_tasks))
 
@@ -269,7 +270,7 @@ if __name__ == '__main__':
         res_dict = {
             'resource': 'ncsa.bw_aprun',
             'walltime': 1440,
-            'cpus': num_tasks * coresp,
+            'cpus': (num_tasks/generations) * coresp,
 	    'project': 'bamm',
             'queue': 'high',
             'access_schema': 'gsissh'}
