@@ -28,6 +28,7 @@ if __name__ == '__main__':
             #print os.path.join(subdir, file)
             my_list.append(os.path.join(subdir, file))
 
+    print my_list
     cores_per_pipeline = 32
     pipelines = set()
     stage_ref = []
@@ -45,23 +46,25 @@ if __name__ == '__main__':
            
             for step in workflow:
                 task_ref = []
-		s, t = Stage(), NamdTask(name=step, cores=cores_per_pipeline)
+                s, t = Stage(), NamdTask(name=step, cores=cores_per_pipeline)
                 t.arguments = ['replica_{}/lambda_{}/{}.conf'.format(replica, ld, step), '&>', 'replica_{}/lambda_{}/{}.log'.format(replica, ld, step)]
                 task_ref.append("$Pipeline_{0}_Stage_{1}_Task_{2}/".format(p.uid, s.uid, t.uid))
+                #print task_ref
                 s.add_tasks(t)
                 p.add_stages(s)
 
-		for task_paths in stage_ref:
+                for task_paths in stage_ref:
                     for task_path in task_paths: 
-                        print task_path 
-			print workflow[stage_ref.index(task_paths)]
-			t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.coor'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
+                        #print task_path 
+                        #print workflow[stage_ref.index(task_paths)]
+                        t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.coor'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
                         t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.xsc'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
                         t.copy_input_data.append(task_path+'/replica_{}/lambda_{}/{}.vel'.format(replica,ld,workflow[stage_ref.index(task_paths)]))
+                
                 for f in my_list:
                     t.copy_input_data.append("{}/".format(replica)+f+" > "+f)
-           
             
+
             	stage_ref.append(task_ref)
             pipelines.add(p)
 
@@ -94,4 +97,4 @@ if __name__ == '__main__':
     appman.assign_workflow(pipelines)
 
     # Run the Application Manager
-    appman.run()
+    #appman.run()
